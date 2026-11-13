@@ -1,0 +1,602 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Research Gap Discovery - Access</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .access-section {
+            padding: 50px 20px;
+            min-height: 450px;
+        }
+
+        .access-container {
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .access-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .progress-info {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #2563eb;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .platform-access-card {
+            padding: 25px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            background: #ffffff;
+        }
+
+        .platform-access-card h3 {
+            color: #1d4ed8;
+            margin-bottom: 15px;
+        }
+
+        .platform-access-card p {
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .radio-options {
+            display: flex;
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .radio-options label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .radio-options input {
+            accent-color: #2563eb;
+            width: 18px;
+            height: 18px;
+        }
+
+        .notice {
+            padding: 18px;
+            background: #eff6ff;
+            border-left: 4px solid #2563eb;
+            border-radius: 6px;
+            margin-top: 25px;
+        }
+
+        .notice p {
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        .access-error {
+            color: #dc2626;
+            text-align: center;
+            margin: 18px 0;
+            font-size: 14px;
+        }
+
+        .button-area {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .primary-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 600px) {
+
+            .access-section {
+                padding: 35px 16px;
+            }
+
+            .platform-access-card {
+                padding: 18px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Research Gap Discovery
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">Home</a>
+
+            <a href="research.html">New Analysis</a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- Page Header -->
+
+    <section class="page-header">
+
+        <h1>Platform Access</h1>
+
+        <p>
+            Tell us whether you have subscription or authorized
+            access to the selected research platforms.
+        </p>
+
+    </section>
+
+
+
+    <!-- Access Section -->
+
+    <section class="access-section">
+
+        <div class="access-container">
+
+            <h2 id="platformTitle">
+                Platform Access
+            </h2>
+
+
+            <!-- Progress Information -->
+
+            <p
+                id="progressInfo"
+                class="progress-info"
+            ></p>
+
+
+            <div class="progress-bar">
+
+                <div
+                    id="progressFill"
+                    class="progress-fill"
+                ></div>
+
+            </div>
+
+
+            <!-- Dynamic Access Question -->
+
+            <div id="accessQuestion"></div>
+
+
+            <!-- Important Notice -->
+
+            <div class="notice">
+
+                <strong>Important:</strong>
+
+                <p>
+                    Only use authorized access. Do not enter
+                    publisher usernames or passwords into this website.
+                </p>
+
+            </div>
+
+
+            <!-- Error Message -->
+
+            <p
+                id="errorMessage"
+                class="access-error"
+                role="alert"
+            ></p>
+
+
+            <!-- Continue Button -->
+
+            <div class="button-area">
+
+                <button
+                    id="continueButton"
+                    class="primary-btn"
+                    type="button"
+                >
+                    Continue
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+            Research Gap Discovery © 2026
+        </p>
+
+    </footer>
+
+
+
+    <script>
+
+
+        // Retrieve selected research platforms
+
+        let selectedSources = [];
+
+        try {
+
+            selectedSources = JSON.parse(
+                sessionStorage.getItem("selectedSources") || "[]"
+            );
+
+        } catch (error) {
+
+            selectedSources = [];
+
+        }
+
+
+        // Allowed platform names
+
+        const allowedSources = [
+            "IEEE Xplore",
+            "ScienceDirect / Elsevier",
+            "SpringerLink",
+            "ACM Digital Library",
+            "Semantic Scholar",
+            "OpenAlex"
+        ];
+
+
+        // Validate selected platforms
+
+        if (
+            !Array.isArray(selectedSources) ||
+            selectedSources.length === 0 ||
+            !selectedSources.every(source =>
+                allowedSources.includes(source)
+            ) ||
+            new Set(selectedSources).size !== selectedSources.length
+        ) {
+
+            window.location.replace("sources.html");
+
+        }
+
+
+        // Current platform index
+
+        let currentIndex = 0;
+
+
+        // Retrieve previously saved answers
+
+        let accessAnswers = {};
+
+        try {
+
+            accessAnswers = JSON.parse(
+                sessionStorage.getItem("accessAnswers") || "{}"
+            );
+
+        } catch (error) {
+
+            accessAnswers = {};
+
+        }
+
+
+        if (
+            !accessAnswers ||
+            typeof accessAnswers !== "object" ||
+            Array.isArray(accessAnswers)
+        ) {
+
+            accessAnswers = {};
+
+        }
+
+
+        // Find the first unanswered platform
+
+        const firstUnanswered = selectedSources.findIndex(
+            platform =>
+                accessAnswers[platform] !== "yes" &&
+                accessAnswers[platform] !== "no"
+        );
+
+
+        if (firstUnanswered !== -1) {
+
+            currentIndex = firstUnanswered;
+
+        }
+
+
+        // Get HTML elements
+
+        const platformTitle =
+            document.getElementById("platformTitle");
+
+        const accessQuestion =
+            document.getElementById("accessQuestion");
+
+        const continueButton =
+            document.getElementById("continueButton");
+
+        const progressInfo =
+            document.getElementById("progressInfo");
+
+        const progressFill =
+            document.getElementById("progressFill");
+
+        const errorMessage =
+            document.getElementById("errorMessage");
+
+
+
+        // Display current platform
+
+        function showPlatform() {
+
+            const platform =
+                selectedSources[currentIndex];
+
+
+            // Update title
+
+            platformTitle.textContent = platform;
+
+
+            // Update progress
+
+            progressInfo.textContent =
+                "Platform " +
+                (currentIndex + 1) +
+                " of " +
+                selectedSources.length;
+
+
+            const progress =
+                ((currentIndex + 1) / selectedSources.length) * 100;
+
+
+            progressFill.style.width =
+                progress + "%";
+
+
+            // Create access card safely
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "platform-access-card";
+
+
+            const heading =
+                document.createElement("h3");
+
+            heading.textContent =
+                platform;
+
+
+            const question =
+                document.createElement("p");
+
+            question.textContent =
+                "Do you have a subscription or authorized access for this platform?";
+
+
+            const radioContainer =
+                document.createElement("div");
+
+            radioContainer.className =
+                "radio-options";
+
+
+            // Create Yes and No options
+
+            ["yes", "no"].forEach(function (value) {
+
+                const label =
+                    document.createElement("label");
+
+
+                const radio =
+                    document.createElement("input");
+
+                radio.type = "radio";
+
+                radio.name = "access";
+
+                radio.value = value;
+
+
+                // Restore previous answer
+
+                if (accessAnswers[platform] === value) {
+
+                    radio.checked = true;
+
+                }
+
+
+                const text =
+                    document.createTextNode(
+                        value === "yes" ? "Yes" : "No"
+                    );
+
+
+                label.appendChild(radio);
+
+                label.appendChild(text);
+
+
+                radioContainer.appendChild(label);
+
+            });
+
+
+            card.appendChild(heading);
+
+            card.appendChild(question);
+
+            card.appendChild(radioContainer);
+
+
+            // Display card
+
+            accessQuestion.replaceChildren(card);
+
+
+            // Clear previous error
+
+            errorMessage.textContent = "";
+
+
+            // Update button text
+
+            continueButton.textContent =
+                currentIndex === selectedSources.length - 1
+                    ? "Start Processing"
+                    : "Continue";
+
+        }
+
+
+
+        // Continue button functionality
+
+        continueButton.addEventListener(
+            "click",
+            function () {
+
+
+                // Get selected answer
+
+                const selected =
+                    document.querySelector(
+                        'input[name="access"]:checked'
+                    );
+
+
+                // Validate answer
+
+                if (!selected) {
+
+                    errorMessage.textContent =
+                        "Please select Yes or No before continuing.";
+
+                    return;
+
+                }
+
+
+                // Save answer for current platform
+
+                const platform =
+                    selectedSources[currentIndex];
+
+
+                accessAnswers[platform] =
+                    selected.value;
+
+
+                // Save immediately
+
+                sessionStorage.setItem(
+                    "accessAnswers",
+                    JSON.stringify(accessAnswers)
+                );
+
+
+                errorMessage.textContent = "";
+
+
+                // Move to next platform
+
+                currentIndex++;
+
+
+                if (
+                    currentIndex < selectedSources.length
+                ) {
+
+                    showPlatform();
+
+                    return;
+
+                }
+
+
+                // All access questions completed
+
+                // Navigate to processing page
+
+                window.location.href =
+                    "processing.html";
+
+
+            }
+        );
+
+
+
+        // Display first unanswered platform
+
+        showPlatform();
+
+
+    </script>
+
+
+</body>
+
+</html>

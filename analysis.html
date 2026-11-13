@@ -1,0 +1,1073 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analysis | Research Gap Discovery</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .analysis-summary {
+            max-width: 800px;
+            margin: 25px auto;
+            padding: 20px;
+            background: #f8fbff;
+            border: 1px solid #dbeafe;
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .analysis-summary h3 {
+            color: #1d4ed8;
+            margin-bottom: 15px;
+        }
+
+        .summary-item {
+            margin-bottom: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        .summary-item p {
+            color: #64748b;
+            font-size: 14px;
+            margin-top: 5px;
+            line-height: 1.5;
+        }
+
+        .simulation-notice {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 15px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-radius: 8px;
+            color: #9a3412;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .analysis-current {
+            border: 2px solid #2563eb !important;
+            background: #eff6ff !important;
+        }
+
+        .analysis-completed {
+            border: 2px solid #86efac !important;
+            background: #f0fdf4 !important;
+        }
+
+        .analysis-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .analysis-progress-container {
+            width: 100%;
+            max-width: 800px;
+            height: 10px;
+            margin: 25px auto 10px;
+            background: #e5e7eb;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .analysis-progress {
+            width: 0%;
+            height: 100%;
+            background: #2563eb;
+            border-radius: 20px;
+            transition: width 0.4s ease;
+        }
+
+        #analysisPercent {
+            font-weight: bold;
+            color: #1d4ed8;
+        }
+
+        #analysisStatus {
+            margin: 15px auto;
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .analysis-error {
+            color: #dc2626;
+            margin: 20px auto;
+        }
+
+        .primary-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        @media(max-width: 600px) {
+
+            .analysis-summary {
+                padding: 15px;
+            }
+
+            .analysis-card {
+                gap: 12px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- Navigation -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            Research Gap Discovery
+        </div>
+
+    </header>
+
+
+
+    <main>
+
+        <section class="section analysis-section">
+
+
+            <p class="tagline">
+                AI Research Analysis
+            </p>
+
+
+            <h2>
+                Analyzing Your Research
+            </h2>
+
+
+            <p id="analysisStatus" aria-live="polite">
+                Verifying research information...
+            </p>
+
+
+
+            <!-- Research Summary -->
+
+            <div class="analysis-summary">
+
+                <h3>Your Research Information</h3>
+
+
+                <div class="summary-item">
+
+                    <strong>Research Input:</strong>
+
+                    <p id="researchInput">
+                        Loading...
+                    </p>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <strong>Selected Platforms:</strong>
+
+                    <p id="selectedPlatforms">
+                        Loading...
+                    </p>
+
+                </div>
+
+
+                <div class="summary-item">
+
+                    <strong>Access Preferences:</strong>
+
+                    <p id="accessPreferences">
+                        Loading...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Simulation Notice -->
+
+            <div class="simulation-notice">
+
+                <strong>Prototype Mode:</strong>
+
+                <p>
+                    The nine analysis stages displayed below
+                    currently use simulated progress.
+
+                    Actual research paper retrieval, semantic
+                    similarity, RAG processing, Gemini analysis,
+                    and research gap identification will be
+                    implemented in later development stages.
+                </p>
+
+            </div>
+
+
+
+            <!-- Analysis Pipeline -->
+
+            <div class="analysis-pipeline">
+
+
+                <div id="analysisStep1" class="analysis-card">
+
+                    <div class="analysis-number">1</div>
+
+                    <div>
+
+                        <h3>Research Representation</h3>
+
+                        <p>
+                            Identify the research problem, objectives,
+                            methodology, domain, and keywords.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div id="analysisStep2" class="analysis-card">
+
+                    <div class="analysis-number">2</div>
+
+                    <div>
+
+                        <h3>Literature Retrieval</h3>
+
+                        <p>
+                            Retrieve relevant scholarly papers from
+                            the selected sources.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div id="analysisStep3" class="analysis-card">
+
+                    <div class="analysis-number">3</div>
+
+                    <div>
+
+                        <h3>Literature Normalization</h3>
+
+                        <p>
+                            Merge results and remove duplicate
+                            research papers.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div id="analysisStep4" class="analysis-card">
+
+                    <div class="analysis-number">4</div>
+
+                    <div>
+
+                        <h3>Semantic Similarity</h3>
+
+                        <p>
+                            Generate embeddings and compare the
+                            research idea with relevant literature.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div id="analysisStep5" class="analysis-card">
+
+                    <div class="analysis-number">5</div>
+
+                    <div>
+
+                        <h3>Cross-Paper Comparison</h3>
+
+                        <p>
+                            Compare objectives, methods, datasets,
+                            findings, and limitations.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div id="analysisStep6" class="analysis-card">
+
+                    <div class="analysis-number">6</div>
+
+                    <div>
+
+                        <h3>RAG Context</h3>
+
+                        <p>
+                            Prepare relevant literature and evidence
+                            for grounded AI analysis.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div id="analysisStep7" class="analysis-card">
+
+                    <div class="analysis-number">7</div>
+
+                    <div>
+
+                        <h3>Research Gap Detection</h3>
+
+                        <p>
+                            Identify candidate unexplored areas,
+                            limitations, and potential research gaps.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div id="analysisStep8" class="analysis-card">
+
+                    <div class="analysis-number">8</div>
+
+                    <div>
+
+                        <h3>Novelty Assessment</h3>
+
+                        <p>
+                            Evaluate the research idea against the
+                            analyzed literature.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div id="analysisStep9" class="analysis-card">
+
+                    <div class="analysis-number">9</div>
+
+                    <div>
+
+                        <h3>Research Suggestions</h3>
+
+                        <p>
+                            Generate possible improvements and
+                            directions for future research.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- Progress Bar -->
+
+            <div class="analysis-progress-container">
+
+                <div
+                    id="analysisProgress"
+                    class="analysis-progress"
+                    role="progressbar"
+                    aria-label="Analysis progress"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="0">
+                </div>
+
+            </div>
+
+
+            <p id="analysisPercent">
+                0%
+            </p>
+
+
+
+            <!-- Results Button -->
+
+            <div
+                id="resultsArea"
+                class="continue-area"
+                style="display: none;">
+
+                <button
+                    id="resultsBtn"
+                    class="primary-btn"
+                    type="button">
+
+                    View Research Results
+
+                </button>
+
+            </div>
+
+
+
+            <!-- Error Message -->
+
+            <p
+                id="analysisError"
+                class="analysis-error"
+                role="alert">
+            </p>
+
+
+        </section>
+
+    </main>
+
+
+
+    <script>
+
+
+        // Get HTML elements
+
+        const analysisStatus =
+            document.getElementById("analysisStatus");
+
+        const analysisProgress =
+            document.getElementById("analysisProgress");
+
+        const analysisPercent =
+            document.getElementById("analysisPercent");
+
+        const resultsArea =
+            document.getElementById("resultsArea");
+
+        const analysisError =
+            document.getElementById("analysisError");
+
+
+        // Allowed research platforms
+
+        const allowedSources = [
+
+            "IEEE Xplore",
+
+            "ScienceDirect / Elsevier",
+
+            "SpringerLink",
+
+            "ACM Digital Library",
+
+            "Semantic Scholar",
+
+            "OpenAlex"
+
+        ];
+
+
+        // Read saved arrays
+
+        function readArray(key) {
+
+            try {
+
+                const value = JSON.parse(
+                    sessionStorage.getItem(key) || "[]"
+                );
+
+                return Array.isArray(value) ? value : [];
+
+            } catch (error) {
+
+                return [];
+
+            }
+
+        }
+
+
+        // Read saved objects
+
+        function readObject(key) {
+
+            try {
+
+                const value = JSON.parse(
+                    sessionStorage.getItem(key) || "{}"
+                );
+
+                return value &&
+                    typeof value === "object" &&
+                    !Array.isArray(value)
+                    ? value
+                    : {};
+
+            } catch (error) {
+
+                return {};
+
+            }
+
+        }
+
+
+        // Verify PDF in IndexedDB
+
+        function verifyPDF() {
+
+            return new Promise(function (resolve, reject) {
+
+                if (!window.indexedDB) {
+
+                    reject(
+                        new Error("IndexedDB is unavailable.")
+                    );
+
+                    return;
+
+                }
+
+
+                const request =
+                    indexedDB.open("GAPXDatabase", 1);
+
+
+                request.onsuccess = function () {
+
+                    const database = request.result;
+
+
+                    if (!database.objectStoreNames.contains("researchFiles")) {
+
+                        database.close();
+
+                        resolve(false);
+
+                        return;
+
+                    }
+
+
+                    const transaction =
+                        database.transaction(
+                            ["researchFiles"],
+                            "readonly"
+                        );
+
+
+                    const store =
+                        transaction.objectStore("researchFiles");
+
+
+                    const getRequest =
+                        store.get("currentResearchPdf");
+
+
+                    getRequest.onsuccess = function () {
+
+                        const file = getRequest.result;
+
+                        database.close();
+
+                        resolve(!!file);
+
+                    };
+
+
+                    getRequest.onerror = function () {
+
+                        database.close();
+
+                        reject(getRequest.error);
+
+                    };
+
+                };
+
+
+                request.onerror = function () {
+
+                    reject(request.error);
+
+                };
+
+            });
+
+        }
+
+
+
+        // Validate research information
+
+        async function validateAnalysis() {
+
+
+            const researchType =
+                sessionStorage.getItem("researchType");
+
+
+            const topic =
+                sessionStorage.getItem("researchTopic");
+
+
+            const pdfName =
+                sessionStorage.getItem("researchPdfName");
+
+
+            const selectedSources =
+                readArray("selectedSources");
+
+
+            const accessAnswers =
+                readObject("accessAnswers");
+
+
+
+            // Validate topic input
+
+            if (researchType === "topic") {
+
+                if (!topic || !topic.trim()) {
+
+                    window.location.replace("research.html");
+
+                    return false;
+
+                }
+
+
+                document.getElementById("researchInput")
+                    .textContent = topic;
+
+            }
+
+
+            // Validate PDF input
+
+            else if (researchType === "pdf") {
+
+                if (!pdfName) {
+
+                    window.location.replace("research.html");
+
+                    return false;
+
+                }
+
+
+                const pdfExists =
+                    await verifyPDF();
+
+
+                if (!pdfExists) {
+
+                    window.location.replace("research.html");
+
+                    return false;
+
+                }
+
+
+                document.getElementById("researchInput")
+                    .textContent = "PDF: " + pdfName;
+
+            }
+
+
+            else {
+
+                window.location.replace("research.html");
+
+                return false;
+
+            }
+
+
+
+            // Validate selected platforms
+
+            if (
+
+                selectedSources.length === 0 ||
+
+                !selectedSources.every(source =>
+                    allowedSources.includes(source)
+                ) ||
+
+                new Set(selectedSources).size !== selectedSources.length
+
+            ) {
+
+                window.location.replace("sources.html");
+
+                return false;
+
+            }
+
+
+            document.getElementById("selectedPlatforms")
+                .textContent = selectedSources.join(", ");
+
+
+
+            // Validate access preferences
+
+            const allAnswered =
+                selectedSources.every(source =>
+                    accessAnswers[source] === "yes" ||
+                    accessAnswers[source] === "no"
+                );
+
+
+            if (!allAnswered) {
+
+                window.location.replace("access.html");
+
+                return false;
+
+            }
+
+
+            const preferences =
+                selectedSources.map(function (source) {
+
+                    return source + ": " +
+                        (accessAnswers[source] === "yes"
+                            ? "Yes"
+                            : "No");
+
+                });
+
+
+            document.getElementById("accessPreferences")
+                .textContent = preferences.join(" | ");
+
+
+
+            // Check processing completion
+
+            if (
+                sessionStorage.getItem("processingDemoCompleted") !== "true"
+            ) {
+
+                window.location.replace("processing.html");
+
+                return false;
+
+            }
+
+
+            return true;
+
+        }
+
+
+
+        // Define nine analysis stages
+
+        const steps = [
+
+            {
+                id: "analysisStep1",
+                text: "Research representation prepared."
+            },
+
+            {
+                id: "analysisStep2",
+                text: "Literature retrieval stage completed."
+            },
+
+            {
+                id: "analysisStep3",
+                text: "Literature normalization stage completed."
+            },
+
+            {
+                id: "analysisStep4",
+                text: "Semantic similarity stage completed."
+            },
+
+            {
+                id: "analysisStep5",
+                text: "Cross-paper comparison stage completed."
+            },
+
+            {
+                id: "analysisStep6",
+                text: "RAG context preparation completed."
+            },
+
+            {
+                id: "analysisStep7",
+                text: "Research gap detection stage completed."
+            },
+
+            {
+                id: "analysisStep8",
+                text: "Novelty assessment stage completed."
+            },
+
+            {
+                id: "analysisStep9",
+                text: "Research suggestion stage completed."
+            }
+
+        ];
+
+
+
+        // Current step
+
+        let currentStep = 0;
+
+
+
+        // Run analysis stages
+
+        function runAnalysis() {
+
+
+            // Check whether all steps are completed
+
+            if (currentStep >= steps.length) {
+
+
+                analysisStatus.textContent =
+                    "Demo analysis workflow completed successfully.";
+
+
+                analysisProgress.style.width =
+                    "100%";
+
+
+                analysisProgress.setAttribute(
+                    "aria-valuenow",
+                    "100"
+                );
+
+
+                analysisPercent.textContent =
+                    "100%";
+
+
+                sessionStorage.setItem(
+                    "analysisDemoCompleted",
+                    "true"
+                );
+
+
+                resultsArea.style.display =
+                    "block";
+
+
+                return;
+
+            }
+
+
+
+            const step =
+                steps[currentStep];
+
+
+
+            // Display current status
+
+            analysisStatus.textContent =
+                "Step " +
+                (currentStep + 1) +
+                " of 9: " +
+                step.text;
+
+
+
+            // Highlight current step
+
+            const stepElement =
+                document.getElementById(step.id);
+
+
+            stepElement.classList.add(
+                "analysis-current"
+            );
+
+
+
+            // Calculate progress
+
+            const progress =
+                Math.round(
+                    ((currentStep + 1) / steps.length) * 100
+                );
+
+
+
+            // Update progress bar
+
+            analysisProgress.style.width =
+                progress + "%";
+
+
+            analysisProgress.setAttribute(
+                "aria-valuenow",
+                String(progress)
+            );
+
+
+            analysisPercent.textContent =
+                progress + "%";
+
+
+
+            // Mark completed step
+
+            setTimeout(function () {
+
+
+                stepElement.classList.remove(
+                    "analysis-current"
+                );
+
+
+                stepElement.classList.add(
+                    "analysis-completed"
+                );
+
+
+            }, 900);
+
+
+
+            // Move to next step
+
+            currentStep++;
+
+
+            setTimeout(
+                runAnalysis,
+                1100
+            );
+
+        }
+
+
+
+        // Initialize analysis
+
+        async function initializeAnalysis() {
+
+            try {
+
+
+                const valid =
+                    await validateAnalysis();
+
+
+                if (!valid) {
+
+                    return;
+
+                }
+
+
+                analysisStatus.textContent =
+                    "Research information verified. Starting analysis...";
+
+
+                setTimeout(
+                    runAnalysis,
+                    1000
+                );
+
+
+            }
+
+            catch (error) {
+
+
+                console.error(
+                    "Analysis initialization error:",
+                    error
+                );
+
+
+                analysisStatus.textContent =
+                    "Unable to start analysis.";
+
+
+                analysisError.textContent =
+                    "An error occurred while verifying your research information. Please try again.";
+
+            }
+
+        }
+
+
+
+        // Results button navigation
+
+        document
+            .getElementById("resultsBtn")
+            .addEventListener("click", function () {
+
+
+                if (
+                    sessionStorage.getItem("analysisDemoCompleted") === "true"
+                ) {
+
+                    window.location.href =
+                        "results.html";
+
+                }
+
+            });
+
+
+
+        // Start analysis
+
+        initializeAnalysis();
+
+
+    </script>
+
+
+</body>
+
+</html>

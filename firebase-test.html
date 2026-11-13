@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GAPX Firebase Authentication Test</title>
+</head>
+
+<body>
+
+    <h2>GAPX Firebase Authentication Test</h2>
+
+    <p id="status">Checking authentication...</p>
+
+    <script type="module">
+
+        import { signInUserAnonymously } from "./firebase.js";
+
+        const status = document.getElementById("status");
+
+        try {
+
+            const user = await signInUserAnonymously();
+
+            status.textContent =
+                "Anonymous authentication successful! User ID: " + user.uid;
+
+            status.style.color = "green";
+
+            console.log("Authenticated user:", user);
+
+        } catch (error) {
+
+            console.error("Authentication error:", error);
+
+            status.textContent =
+                "Authentication failed: " + error.message;
+
+            status.style.color = "red";
+
+        }
+
+    </script>
+
+</body>
+</html>

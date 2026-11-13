@@ -1,0 +1,626 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Gap Discovery - Results</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .status-label {
+            display: inline-block;
+            padding: 6px 12px;
+            margin-bottom: 12px;
+            border-radius: 20px;
+            background: #fff3cd;
+            color: #856404;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .empty-result {
+            padding: 22px;
+            border: 1px dashed #aaa;
+            border-radius: 10px;
+            background: rgba(128, 128, 128, 0.05);
+            line-height: 1.7;
+        }
+
+        .summary-detail {
+            overflow-wrap: anywhere;
+        }
+
+        .report-message {
+            margin-top: 12px;
+        }
+
+        .muted-text {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Research Gap Discovery</div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="research.html">New Analysis</a>
+        </div>
+    </nav>
+
+    <!-- Results Header -->
+    <section class="page-header">
+        <h1>Research Analysis Results</h1>
+
+        <p>
+            Review your research input, literature analysis,
+            candidate research gaps, originality assessment,
+            and research suggestions.
+        </p>
+
+        <span class="status-label">
+            Frontend Demo — Backend Integration Pending
+        </span>
+    </section>
+
+    <!-- Research Summary -->
+    <section class="results-section">
+
+        <div class="result-card">
+
+            <h2>Research Summary</h2>
+
+            <p class="summary-detail">
+                <strong>Research Input Type:</strong>
+                <span id="researchType">Not available</span>
+            </p>
+
+            <p class="summary-detail">
+                <strong>Research Topic:</strong>
+                <span id="researchTopic">Not available</span>
+            </p>
+
+            <p class="summary-detail">
+                <strong>Uploaded PDF:</strong>
+                <span id="researchPdf">Not applicable</span>
+            </p>
+
+            <p class="summary-detail">
+                <strong>Sources Selected:</strong>
+                <span id="researchSources">Not available</span>
+            </p>
+
+            <p>
+                <strong>Analysis Status:</strong>
+                Frontend workflow completed. Real literature retrieval
+                and AI analysis are not connected yet.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- Literature -->
+    <section class="results-section">
+
+        <h2>Relevant Literature</h2>
+
+        <div class="result-card">
+
+            <span class="status-label">Awaiting Backend Integration</span>
+
+            <div class="empty-result">
+                <h3>Research papers will appear here</h3>
+
+                <p>
+                    This section will display papers retrieved from
+                    scholarly sources such as OpenAlex and Semantic Scholar.
+                </p>
+
+                <p>
+                    Each paper will include its title, authors, publication
+                    year, source, abstract, and reference link.
+                </p>
+
+                <p class="muted-text">
+                    No real research papers have been retrieved in this
+                    frontend demo.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Similarity Analysis -->
+    <section class="results-section">
+
+        <h2>Semantic Similarity Analysis</h2>
+
+        <div class="result-card">
+
+            <span class="status-label">Awaiting AI Integration</span>
+
+            <p>
+                Semantic similarity will compare the research idea with
+                retrieved papers using text embeddings and similarity scoring.
+            </p>
+
+            <div class="empty-result">
+                <p>
+                    Similarity scores and comparison graphs will be
+                    displayed here after the embedding model and backend
+                    processing are implemented.
+                </p>
+
+                <p>
+                    <strong>Current Status:</strong>
+                    No real similarity scores have been calculated.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Cross Paper Comparison -->
+    <section class="results-section">
+
+        <h2>Cross-Paper Comparison</h2>
+
+        <div class="result-card">
+
+            <span class="status-label">Awaiting Literature Data</span>
+
+            <p>
+                This section will compare retrieved research papers
+                according to their methods, datasets, findings,
+                and reported limitations.
+            </p>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Paper</th>
+                            <th>Method</th>
+                            <th>Dataset</th>
+                            <th>Main Finding</th>
+                            <th>Limitation</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td colspan="5">
+                                No paper comparison data available yet.
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Research Gaps -->
+    <section class="results-section">
+
+        <h2>Candidate Research Gaps</h2>
+
+        <div class="result-card">
+
+            <span class="status-label">Awaiting AI Analysis</span>
+
+            <div class="empty-result">
+
+                <h3>Candidate research gaps will appear here</h3>
+
+                <p>
+                    The system will identify possible research gaps
+                    by examining limitations, recurring problems,
+                    underexplored topics, and future-work suggestions
+                    in the retrieved literature.
+                </p>
+
+                <p>
+                    Each candidate gap will eventually include its
+                    explanation and supporting research references.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Evidence -->
+    <section class="results-section">
+
+        <h2>Gap Evidence</h2>
+
+        <div class="result-card">
+
+            <span class="status-label">Awaiting Literature Analysis</span>
+
+            <p>
+                This section will provide evidence supporting each
+                candidate research gap.
+            </p>
+
+            <ul>
+                <li>Relevant statements from research papers.</li>
+                <li>Reported limitations and unresolved problems.</li>
+                <li>Future research directions identified by authors.</li>
+                <li>References supporting each candidate gap.</li>
+            </ul>
+
+            <p>
+                Actual evidence will be displayed after literature
+                retrieval and document analysis are implemented.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- Supporting References -->
+    <section class="results-section">
+
+        <h2>Supporting Paper References</h2>
+
+        <div class="result-card">
+
+            <span class="status-label">Awaiting Backend Integration</span>
+
+            <p>
+                Research papers supporting identified gaps will be listed
+                here with their bibliographic information and available
+                publication links.
+            </p>
+
+            <div class="empty-result">
+                No supporting paper references are available yet.
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Novelty Assessment -->
+    <section class="results-section">
+
+        <h2>Novelty / Originality Assessment</h2>
+
+        <div class="result-card">
+
+            <span class="status-label">Not Yet Assessed</span>
+
+            <h3>Originality assessment pending</h3>
+
+            <p>
+                Once literature retrieval and semantic comparison
+                are implemented, the system will help identify how
+                the proposed research differs from existing studies.
+            </p>
+
+            <div class="notice">
+                <strong>Important:</strong>
+                A literature-based originality assessment cannot
+                guarantee that a research idea is completely novel,
+                accepted, or publishable. Researchers should independently
+                verify the findings.
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Suggestions -->
+    <section class="results-section">
+
+        <h2>Research Improvement Suggestions</h2>
+
+        <div class="suggestion-list">
+
+            <div class="suggestion-card">
+
+                <h3>1. Review Existing Literature</h3>
+
+                <p>
+                    Examine relevant research papers to understand
+                    existing methods, findings, and limitations.
+                </p>
+
+            </div>
+
+            <div class="suggestion-card">
+
+                <h3>2. Identify Unresolved Problems</h3>
+
+                <p>
+                    Investigate limitations and future research
+                    directions reported in existing studies.
+                </p>
+
+            </div>
+
+            <div class="suggestion-card">
+
+                <h3>3. Validate Candidate Research Gaps</h3>
+
+                <p>
+                    Verify possible gaps using multiple reliable
+                    research papers before finalizing a research topic.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Analytics -->
+    <section class="results-section">
+
+        <h2>Graphical Analytics</h2>
+
+        <div class="analytics-grid">
+
+            <div class="chart-placeholder">
+
+                <h3>Similarity Scores</h3>
+
+                <p>
+                    Chart will be generated after real similarity
+                    analysis is implemented.
+                </p>
+
+            </div>
+
+            <div class="chart-placeholder">
+
+                <h3>Literature by Year</h3>
+
+                <p>
+                    Chart will display the publication-year
+                    distribution of retrieved papers.
+                </p>
+
+            </div>
+
+            <div class="chart-placeholder">
+
+                <h3>Sources Distribution</h3>
+
+                <p>
+                    Chart will display the number of papers
+                    retrieved from each scholarly source.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Final Report -->
+    <section class="results-section">
+
+        <div class="final-report-card">
+
+            <h2>Final Research Gap Report</h2>
+
+            <p>
+                Download a basic summary of your research input
+                and selected scholarly sources.
+            </p>
+
+            <p class="muted-text">
+                This is a frontend summary report, not the final
+                AI-generated research gap report. Full report
+                generation will be added during backend integration.
+            </p>
+
+            <button
+                class="primary-btn"
+                onclick="generateReport()">
+                Download Research Summary
+            </button>
+
+            <p id="reportMessage" class="report-message"></p>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Research Gap Discovery © 2026</p>
+    </footer>
+
+    <script>
+
+        // Read research information saved by earlier pages.
+        function displayResearchSummary() {
+
+            const researchType =
+                sessionStorage.getItem("researchType");
+
+            const researchTopic =
+                sessionStorage.getItem("researchTopic");
+
+            const researchPdf =
+                sessionStorage.getItem("researchPdfName");
+
+            const selectedSources =
+                sessionStorage.getItem("selectedSources");
+
+            document.getElementById("researchType").textContent =
+                researchType || "Not available";
+
+            document.getElementById("researchTopic").textContent =
+                researchTopic || "Not provided";
+
+            document.getElementById("researchPdf").textContent =
+                researchPdf || "No PDF uploaded";
+
+            let sourcesText = "No sources selected";
+
+            if (selectedSources) {
+
+                try {
+
+                    const sources = JSON.parse(selectedSources);
+
+                    if (Array.isArray(sources) && sources.length > 0) {
+                        sourcesText = sources.join(", ");
+                    }
+
+                } catch (error) {
+
+                    sourcesText = selectedSources;
+
+                }
+
+            }
+
+            document.getElementById("researchSources").textContent =
+                sourcesText;
+
+        }
+
+
+        // Generate a basic downloadable frontend summary.
+        function generateReport() {
+
+            const researchType =
+                sessionStorage.getItem("researchType") || "Not available";
+
+            const researchTopic =
+                sessionStorage.getItem("researchTopic") || "Not provided";
+
+            const researchPdf =
+                sessionStorage.getItem("researchPdfName") || "No PDF uploaded";
+
+            let sourcesText = "No sources selected";
+
+            const selectedSources =
+                sessionStorage.getItem("selectedSources");
+
+            if (selectedSources) {
+
+                try {
+
+                    const sources = JSON.parse(selectedSources);
+
+                    if (Array.isArray(sources)) {
+                        sourcesText = sources.join(", ");
+                    } else {
+                        sourcesText = selectedSources;
+                    }
+
+                } catch (error) {
+
+                    sourcesText = selectedSources;
+
+                }
+
+            }
+
+            const reportContent = `
+RESEARCH GAP DISCOVERY
+FRONTEND SUMMARY REPORT
+
+========================================
+
+RESEARCH INPUT
+
+Input Type: ${researchType}
+
+Research Topic: ${researchTopic}
+
+Uploaded PDF: ${researchPdf}
+
+Selected Scholarly Sources:
+${sourcesText}
+
+========================================
+
+PROJECT STATUS
+
+The frontend research workflow has been completed.
+
+The following features are awaiting backend integration:
+
+1. Scholarly paper retrieval
+2. PDF text extraction
+3. Semantic similarity analysis
+4. Cross-paper comparison
+5. Research gap identification
+6. Supporting paper references
+7. AI-based originality assessment
+8. Final research gap report generation
+
+========================================
+
+IMPORTANT NOTE
+
+This document contains the research input summary only.
+
+No real research papers have been retrieved.
+No real similarity scores have been calculated.
+No AI-generated research gaps have been produced.
+
+These features will be implemented during backend integration.
+
+========================================
+
+Generated by Research Gap Discovery (GAPX)
+`;
+
+            const blob = new Blob(
+                [reportContent],
+                { type: "text/plain;charset=utf-8" }
+            );
+
+            const downloadUrl = URL.createObjectURL(blob);
+
+            const link = document.createElement("a");
+
+            link.href = downloadUrl;
+            link.download = "GAPX_Research_Summary.txt";
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            document.body.removeChild(link);
+
+            URL.revokeObjectURL(downloadUrl);
+
+            document.getElementById("reportMessage").textContent =
+                "Your research summary report has been downloaded.";
+        }
+
+
+        // Display the saved research information when the page opens.
+        displayResearchSummary();
+
+    </script>
+
+</body>
+
+</html>

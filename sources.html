@@ -1,0 +1,528 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Research Gap Discovery - Select Sources</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .page-header {
+            padding: 55px 20px;
+            text-align: center;
+            background: #eef4ff;
+        }
+
+        .page-header h1 {
+            font-size: 34px;
+            color: #111827;
+            margin-bottom: 12px;
+        }
+
+        .page-header p {
+            color: #5b6472;
+            font-size: 16px;
+        }
+
+        .sources-section {
+            padding: 55px 20px;
+            background: #ffffff;
+            min-height: 550px;
+        }
+
+        .sources-container {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .sources-container h2 {
+            text-align: center;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .selection-info {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .source-option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            background: #ffffff;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .source-option:hover {
+            border-color: #93c5fd;
+            background: #f8fbff;
+        }
+
+        .source-option:has(input:checked) {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .source-option input {
+            width: 19px;
+            height: 19px;
+            cursor: pointer;
+            accent-color: #2563eb;
+            flex-shrink: 0;
+        }
+
+        .source-option span {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1d4ed8;
+        }
+
+        .selection-message {
+            min-height: 25px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 14px;
+            color: #dc2626;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .primary-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 600px) {
+
+            .page-header h1 {
+                font-size: 27px;
+            }
+
+            .sources-section {
+                padding: 40px 18px;
+            }
+
+            .source-option {
+                padding: 16px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Research Gap Discovery
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">Home</a>
+
+            <a href="research.html">New Analysis</a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Page Header -->
+
+    <section class="page-header">
+
+        <h1>Select Research Sources</h1>
+
+        <p>
+            Choose the scholarly platforms you want the system to search.
+        </p>
+
+    </section>
+
+
+    <!-- Source Selection -->
+
+    <section class="sources-section">
+
+        <div class="sources-container">
+
+            <h2>Available Platforms</h2>
+
+            <p class="selection-info">
+                You can select multiple research platforms.
+                Select at least one platform to continue.
+            </p>
+
+
+            <!-- IEEE Xplore -->
+
+            <label class="source-option">
+
+                <input
+                    type="checkbox"
+                    name="researchSource"
+                    value="IEEE Xplore"
+                >
+
+                <span>IEEE Xplore</span>
+
+            </label>
+
+
+            <!-- ScienceDirect -->
+
+            <label class="source-option">
+
+                <input
+                    type="checkbox"
+                    name="researchSource"
+                    value="ScienceDirect / Elsevier"
+                >
+
+                <span>ScienceDirect / Elsevier</span>
+
+            </label>
+
+
+            <!-- SpringerLink -->
+
+            <label class="source-option">
+
+                <input
+                    type="checkbox"
+                    name="researchSource"
+                    value="SpringerLink"
+                >
+
+                <span>SpringerLink</span>
+
+            </label>
+
+
+            <!-- ACM Digital Library -->
+
+            <label class="source-option">
+
+                <input
+                    type="checkbox"
+                    name="researchSource"
+                    value="ACM Digital Library"
+                >
+
+                <span>ACM Digital Library</span>
+
+            </label>
+
+
+            <!-- Semantic Scholar -->
+
+            <label class="source-option">
+
+                <input
+                    type="checkbox"
+                    name="researchSource"
+                    value="Semantic Scholar"
+                >
+
+                <span>Semantic Scholar</span>
+
+            </label>
+
+
+            <!-- OpenAlex -->
+
+            <label class="source-option">
+
+                <input
+                    type="checkbox"
+                    name="researchSource"
+                    value="OpenAlex"
+                >
+
+                <span>OpenAlex</span>
+
+            </label>
+
+
+            <!-- Selection Count -->
+
+            <p
+                id="selectionCount"
+                class="selection-info"
+                aria-live="polite"
+            >
+                0 platforms selected
+            </p>
+
+
+            <!-- Error Message -->
+
+            <p
+                id="selectionMessage"
+                class="selection-message"
+                role="alert"
+                aria-live="polite"
+            ></p>
+
+
+            <!-- Continue Button -->
+
+            <div class="button-container">
+
+                <button
+                    class="primary-btn"
+                    id="continueButton"
+                    type="button"
+                >
+                    Continue
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+            Research Gap Discovery © 2026
+        </p>
+
+    </footer>
+
+
+    <script type="module">
+
+        // Import Firestore update function
+
+        import {
+            updateResearchSources
+        } from "./firebase.js";
+
+
+        // Get all source checkboxes
+
+        const checkboxes =
+            document.querySelectorAll(
+                'input[name="researchSource"]'
+            );
+
+        const selectionCount =
+            document.getElementById("selectionCount");
+
+        const selectionMessage =
+            document.getElementById("selectionMessage");
+
+        const continueButton =
+            document.getElementById("continueButton");
+
+
+        // Restore previously selected sources
+
+        function restoreSelections() {
+
+            let savedSources = [];
+
+            try {
+
+                savedSources = JSON.parse(
+                    sessionStorage.getItem("selectedSources") || "[]"
+                );
+
+            } catch (error) {
+
+                console.error("Unable to restore selections:", error);
+
+            }
+
+            checkboxes.forEach(function (checkbox) {
+
+                checkbox.checked =
+                    savedSources.includes(checkbox.value);
+
+            });
+
+            updateSelectionCount();
+
+        }
+
+
+        // Update selected platform count
+
+        function updateSelectionCount() {
+
+            let count = 0;
+
+            checkboxes.forEach(function (checkbox) {
+
+                if (checkbox.checked) {
+                    count++;
+                }
+
+            });
+
+            selectionCount.textContent =
+                count + (
+                    count === 1
+                        ? " platform selected"
+                        : " platforms selected"
+                );
+
+        }
+
+
+        // Listen for checkbox changes
+
+        checkboxes.forEach(function (checkbox) {
+
+            checkbox.addEventListener("change", function () {
+
+                updateSelectionCount();
+
+                selectionMessage.textContent = "";
+
+            });
+
+        });
+
+
+        // Continue to access page
+
+        continueButton.addEventListener(
+            "click",
+            async function () {
+
+                const selectedSources = [];
+
+                checkboxes.forEach(function (checkbox) {
+
+                    if (checkbox.checked) {
+
+                        selectedSources.push(checkbox.value);
+
+                    }
+
+                });
+
+
+                // Validate source selection
+
+                if (selectedSources.length === 0) {
+
+                    selectionMessage.textContent =
+                        "Please select at least one research platform.";
+
+                    return;
+
+                }
+
+
+                // Check research document ID
+
+                const researchRecordId =
+                    sessionStorage.getItem("researchRecordId");
+
+                if (!researchRecordId) {
+
+                    selectionMessage.textContent =
+                        "Research record not found. Please start a new analysis.";
+
+                    return;
+
+                }
+
+
+                // Disable button while saving
+
+                continueButton.disabled = true;
+
+                continueButton.textContent = "Saving...";
+
+                selectionMessage.textContent = "";
+
+
+                try {
+
+                    // Update the existing Firestore research document
+
+                    await updateResearchSources(
+                        researchRecordId,
+                        selectedSources
+                    );
+
+
+                    // Save selected sources locally
+
+                    sessionStorage.setItem(
+                        "selectedSources",
+                        JSON.stringify(selectedSources)
+                    );
+
+
+                    // Clear previous access answers
+
+                    sessionStorage.removeItem("accessAnswers");
+
+
+                    // Navigate to access page
+
+                    window.location.href = "access.html";
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Error saving selected sources:",
+                        error
+                    );
+
+                    selectionMessage.textContent =
+                        "Unable to save sources to Firestore: " +
+                        error.message;
+
+                    continueButton.disabled = false;
+
+                    continueButton.textContent = "Continue";
+
+                }
+
+            }
+        );
+
+
+        // Initialize page
+
+        restoreSelections();
+
+    </script>
+
+</body>
+
+</html>

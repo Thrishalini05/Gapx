@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>GAPX Firestore Test</title>
+</head>
+
+<body>
+
+    <h2>GAPX Firestore Database Test</h2>
+
+    <p>Click the button to test saving and retrieving research data.</p>
+
+    <button id="testButton">Test Firestore Connection</button>
+
+    <h3>Test Result</h3>
+
+    <p id="status">Waiting for test...</p>
+
+    <pre id="records"></pre>
+
+    <script type="module">
+
+        import {
+            saveResearchRecord,
+            getResearchRecords
+        } from "./firebase.js";
+
+        const button = document.getElementById("testButton");
+        const status = document.getElementById("status");
+        const records = document.getElementById("records");
+
+        button.addEventListener("click", async function () {
+
+            button.disabled = true;
+            status.textContent = "Testing Firestore...";
+            records.textContent = "";
+
+            try {
+
+                // Sample research information
+                const researchData = {
+
+                    researchType: "topic",
+
+                    researchTopic:
+                        "AI-Based Research Gap Discovery",
+
+                    researchPdfName: "",
+
+                    selectedSources: [
+                        "IEEE Xplore",
+                        "Semantic Scholar",
+                        "OpenAlex"
+                    ]
+
+                };
+
+                // Save the test record
+                const documentId =
+                    await saveResearchRecord(researchData);
+
+                status.textContent =
+                    "Research record saved successfully!";
+
+                console.log("Saved document ID:", documentId);
+
+                // Retrieve saved records
+                const savedRecords =
+                    await getResearchRecords();
+
+                records.textContent =
+                    JSON.stringify(savedRecords, null, 2);
+
+                status.textContent +=
+                    "\nFirestore read test successful!";
+
+            } catch (error) {
+
+                console.error("Firestore test error:", error);
+
+                status.textContent =
+                    "Test failed: " + error.message;
+
+            } finally {
+
+                button.disabled = false;
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>

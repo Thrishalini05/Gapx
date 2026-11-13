@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Authorized Access | Research Gap Discovery</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            Research Gap Discovery
+        </div>
+
+    </header>
+
+
+    <!-- Authorized Access -->
+
+    <main>
+
+        <section class="section access-section">
+
+            <p class="tagline">
+                Authorized Access
+            </p>
+
+            <h2>
+                Select Your Authorized Platforms
+            </h2>
+
+            <p>
+                Select the platforms for which you have legitimate
+                subscription or institutional access.
+            </p>
+
+
+            <div class="source-grid">
+
+
+                <label class="source-card">
+
+                    <input
+                        type="checkbox"
+                        name="authorizedSource"
+                        value="IEEE Xplore"
+                    >
+
+                    <div>
+                        <h3>IEEE Xplore</h3>
+
+                        <p>
+                            Use authorized access where supported by
+                            the provider and your institution.
+                        </p>
+                    </div>
+
+                </label>
+
+
+                <label class="source-card">
+
+                    <input
+                        type="checkbox"
+                        name="authorizedSource"
+                        value="ScienceDirect"
+                    >
+
+                    <div>
+                        <h3>ScienceDirect / Elsevier</h3>
+
+                        <p>
+                            Use the appropriate authorized access
+                            mechanism supported by Elsevier.
+                        </p>
+                    </div>
+
+                </label>
+
+
+                <label class="source-card">
+
+                    <input
+                        type="checkbox"
+                        name="authorizedSource"
+                        value="SpringerLink"
+                    >
+
+                    <div>
+                        <h3>SpringerLink</h3>
+
+                        <p>
+                            Use authorized institutional or provider
+                            access where supported.
+                        </p>
+                    </div>
+
+                </label>
+
+
+                <label class="source-card">
+
+                    <input
+                        type="checkbox"
+                        name="authorizedSource"
+                        value="ACM Digital Library"
+                    >
+
+                    <div>
+                        <h3>ACM Digital Library</h3>
+
+                        <p>
+                            Use authorized access mechanisms supported
+                            by the ACM platform.
+                        </p>
+                    </div>
+
+                </label>
+
+
+                <label class="source-card">
+
+                    <input
+                        type="checkbox"
+                        name="authorizedSource"
+                        value="Semantic Scholar"
+                    >
+
+                    <div>
+                        <h3>Semantic Scholar</h3>
+
+                        <p>
+                            Use available scholarly metadata and
+                            permitted content.
+                        </p>
+                    </div>
+
+                </label>
+
+
+                <label class="source-card">
+
+                    <input
+                        type="checkbox"
+                        name="authorizedSource"
+                        value="OpenAlex"
+                    >
+
+                    <div>
+                        <h3>OpenAlex</h3>
+
+                        <p>
+                            Use openly available scholarly metadata
+                            and permitted content.
+                        </p>
+                    </div>
+
+                </label>
+
+            </div>
+
+
+            <div class="access-notice">
+
+                <strong>Important:</strong>
+
+                <p>
+                    Do not enter publisher passwords into this application.
+                    The actual implementation will use the official
+                    authentication or access mechanisms supported by each
+                    provider, where available.
+                </p>
+
+            </div>
+
+
+            <button
+                id="verifyAccessBtn"
+                class="primary-btn"
+            >
+                Continue
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        const verifyAccessBtn =
+            document.getElementById("verifyAccessBtn");
+
+
+        verifyAccessBtn.addEventListener("click", function () {
+
+            const selected =
+                document.querySelectorAll(
+                    'input[name="authorizedSource"]:checked'
+                );
+
+
+            if (selected.length === 0) {
+
+                alert(
+                    "Please select at least one authorized platform."
+                );
+
+                return;
+            }
+
+
+            /*
+             * For now, we continue to the processing screen.
+             *
+             * Later this step will be replaced with the appropriate
+             * official authentication/access flow for each provider.
+             */
+
+            window.location.href = "processing.html";
+
+        });
+
+    </script>
+
+</body>
+
+</html>

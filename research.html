@@ -1,0 +1,591 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Research Input | Research Gap Discovery</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .research-input {
+            width: 100%;
+            margin-top: 12px;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+        }
+
+        .research-input:focus {
+            outline: 2px solid #93c5fd;
+            border-color: #2563eb;
+        }
+
+        .input-help {
+            margin-top: 8px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .message {
+            margin: 20px auto;
+            max-width: 700px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .error-message {
+            color: #dc2626;
+        }
+
+        .success-message {
+            color: #15803d;
+        }
+
+        #continueBtn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .research-card {
+            min-width: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <header class="navbar">
+        <div class="logo">
+            Research Gap Discovery
+        </div>
+    </header>
+
+    <!-- Research Input -->
+
+    <main>
+
+        <section class="section">
+
+            <h2>Start Your Research Analysis</h2>
+
+            <p>
+                Choose how you want to provide your research.
+            </p>
+
+            <div class="steps">
+
+                <!-- Upload PDF -->
+
+                <div class="step research-card">
+
+                    <h3>Upload Research PDF</h3>
+
+                    <p>
+                        Upload an existing research paper, proposal,
+                        thesis, or research report.
+                    </p>
+
+                    <br>
+
+                    <input
+                        type="file"
+                        id="researchPdf"
+                        class="research-input"
+                        accept=".pdf,application/pdf"
+                    >
+
+                    <p class="input-help">
+                        PDF format only. Maximum file size: 20 MB.
+                    </p>
+
+                    <p id="fileInfo" class="input-help"></p>
+
+                </div>
+
+                <!-- Research Idea -->
+
+                <div class="step research-card">
+
+                    <h3>Enter Research Idea</h3>
+
+                    <p>
+                        Enter your research topic, problem,
+                        or research idea manually.
+                    </p>
+
+                    <br>
+
+                    <textarea
+                        id="researchIdea"
+                        class="research-input"
+                        rows="7"
+                        placeholder="Enter your research idea here..."
+                    ></textarea>
+
+                    <p class="input-help">
+                        Enter a clear research topic or problem statement.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <p
+                id="message"
+                class="message"
+                role="status"
+                aria-live="polite">
+            </p>
+
+            <button
+                id="continueBtn"
+                class="primary-btn"
+                type="button">
+                Continue
+            </button>
+
+        </section>
+
+    </main>
+
+    <script type="module">
+
+        // Import Firestore save function
+
+        import {
+            saveResearchRecord
+        } from "./firebase.js";
+
+
+        // Get HTML elements
+
+        const continueBtn =
+            document.getElementById("continueBtn");
+
+        const pdfInput =
+            document.getElementById("researchPdf");
+
+        const ideaInput =
+            document.getElementById("researchIdea");
+
+        const message =
+            document.getElementById("message");
+
+        const fileInfo =
+            document.getElementById("fileInfo");
+
+
+        // Maximum PDF size: 20 MB
+
+        const MAX_FILE_SIZE = 20 * 1024 * 1024;
+
+
+        // Display messages
+
+        function showMessage(text, type) {
+
+            message.textContent = text;
+
+            message.className = "message " + type;
+
+        }
+
+
+        // Open IndexedDB database
+
+        function openDatabase() {
+
+            return new Promise(function (resolve, reject) {
+
+                const request =
+                    indexedDB.open("GAPXDatabase", 1);
+
+                request.onupgradeneeded = function (event) {
+
+                    const database = event.target.result;
+
+                    if (!database.objectStoreNames.contains("researchFiles")) {
+
+                        database.createObjectStore("researchFiles");
+
+                    }
+
+                };
+
+                request.onsuccess = function () {
+
+                    resolve(request.result);
+
+                };
+
+                request.onerror = function () {
+
+                    reject(request.error);
+
+                };
+
+            });
+
+        }
+
+
+        // Save PDF in IndexedDB
+
+        async function savePDF(file) {
+
+            const database = await openDatabase();
+
+            return new Promise(function (resolve, reject) {
+
+                const transaction =
+                    database.transaction(
+                        ["researchFiles"],
+                        "readwrite"
+                    );
+
+                const store =
+                    transaction.objectStore("researchFiles");
+
+                store.put(file, "currentResearchPdf");
+
+                transaction.oncomplete = function () {
+
+                    database.close();
+                    resolve();
+
+                };
+
+                transaction.onerror = function () {
+
+                    database.close();
+                    reject(transaction.error);
+
+                };
+
+            });
+
+        }
+
+
+        // Delete previously stored PDF
+
+        async function deletePreviousPDF() {
+
+            const database = await openDatabase();
+
+            return new Promise(function (resolve, reject) {
+
+                const transaction =
+                    database.transaction(
+                        ["researchFiles"],
+                        "readwrite"
+                    );
+
+                const store =
+                    transaction.objectStore("researchFiles");
+
+                store.delete("currentResearchPdf");
+
+                transaction.oncomplete = function () {
+
+                    database.close();
+                    resolve();
+
+                };
+
+                transaction.onerror = function () {
+
+                    database.close();
+                    reject(transaction.error);
+
+                };
+
+            });
+
+        }
+
+
+        // Display selected PDF information
+
+        pdfInput.addEventListener("change", function () {
+
+            const file = pdfInput.files[0];
+
+            fileInfo.textContent = "";
+
+            showMessage("", "");
+
+            if (!file) {
+                return;
+            }
+
+            const isPDF =
+                file.name.toLowerCase().endsWith(".pdf") &&
+                (!file.type || file.type === "application/pdf");
+
+            if (!isPDF) {
+
+                showMessage(
+                    "Please select a valid PDF file.",
+                    "error-message"
+                );
+
+                pdfInput.value = "";
+
+                return;
+
+            }
+
+            if (file.size === 0) {
+
+                showMessage(
+                    "The selected PDF file is empty.",
+                    "error-message"
+                );
+
+                pdfInput.value = "";
+
+                return;
+
+            }
+
+            if (file.size > MAX_FILE_SIZE) {
+
+                showMessage(
+                    "File size exceeds the 20 MB limit.",
+                    "error-message"
+                );
+
+                pdfInput.value = "";
+
+                return;
+
+            }
+
+            fileInfo.textContent =
+                "Selected: " + file.name +
+                " (" + (file.size / (1024 * 1024)).toFixed(2) + " MB)";
+
+        });
+
+
+        // Prevent entering both input types
+
+        pdfInput.addEventListener("change", function () {
+
+            if (pdfInput.files.length > 0) {
+
+                ideaInput.value = "";
+
+            }
+
+        });
+
+
+        ideaInput.addEventListener("input", function () {
+
+            if (ideaInput.value.trim() !== "") {
+
+                pdfInput.value = "";
+
+                fileInfo.textContent = "";
+
+            }
+
+        });
+
+
+        // Continue button functionality
+
+        continueBtn.addEventListener("click", async function () {
+
+            const pdf = pdfInput.files[0];
+
+            const idea = ideaInput.value.trim();
+
+            showMessage("", "");
+
+            // Check whether input is provided
+
+            if (!pdf && !idea) {
+
+                showMessage(
+                    "Please upload a research PDF or enter your research idea.",
+                    "error-message"
+                );
+
+                return;
+
+            }
+
+            // Prevent both input types
+
+            if (pdf && idea) {
+
+                showMessage(
+                    "Please choose either a PDF or a research idea.",
+                    "error-message"
+                );
+
+                return;
+
+            }
+
+            // Disable button while saving
+
+            continueBtn.disabled = true;
+
+            continueBtn.textContent = "Saving...";
+
+            try {
+
+                let researchData;
+
+                if (pdf) {
+
+                    // Save actual PDF file in IndexedDB
+
+                    await savePDF(pdf);
+
+                    researchData = {
+
+                        researchType: "pdf",
+
+                        researchTopic: "",
+
+                        researchPdfName: pdf.name,
+
+                        selectedSources: []
+
+                    };
+
+                    // Save PDF information locally
+
+                    sessionStorage.setItem(
+                        "researchType",
+                        "pdf"
+                    );
+
+                    sessionStorage.setItem(
+                        "researchPdfName",
+                        pdf.name
+                    );
+
+                    sessionStorage.setItem(
+                        "researchPdfSize",
+                        String(pdf.size)
+                    );
+
+                    sessionStorage.removeItem(
+                        "researchTopic"
+                    );
+
+                } else {
+
+                    // Remove any previous PDF
+
+                    await deletePreviousPDF();
+
+                    researchData = {
+
+                        researchType: "topic",
+
+                        researchTopic: idea,
+
+                        researchPdfName: "",
+
+                        selectedSources: []
+
+                    };
+
+                    // Save research topic locally
+
+                    sessionStorage.setItem(
+                        "researchType",
+                        "topic"
+                    );
+
+                    sessionStorage.setItem(
+                        "researchTopic",
+                        idea
+                    );
+
+                    sessionStorage.removeItem(
+                        "researchPdfName"
+                    );
+
+                    sessionStorage.removeItem(
+                        "researchPdfSize"
+                    );
+
+                }
+
+
+                // Clear selections from previous analysis
+
+                sessionStorage.removeItem("selectedSources");
+
+                sessionStorage.removeItem("accessAnswers");
+
+                sessionStorage.removeItem("researchRecordId");
+
+
+                // Save actual research information in Firestore
+
+                const documentId =
+                    await saveResearchRecord(researchData);
+
+
+                // Store Firestore document ID for later steps
+
+                sessionStorage.setItem(
+                    "researchRecordId",
+                    documentId
+                );
+
+
+                showMessage(
+                    "Research input saved successfully in Firestore!",
+                    "success-message"
+                );
+
+
+                // Navigate to source selection
+
+                window.location.href = "sources.html";
+
+
+            } catch (error) {
+
+                console.error(
+                    "Error saving research input:",
+                    error
+                );
+
+                showMessage(
+                    "Unable to save research input to Firestore. " +
+                    error.message,
+                    "error-message"
+                );
+
+                continueBtn.disabled = false;
+
+                continueBtn.textContent = "Continue";
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
